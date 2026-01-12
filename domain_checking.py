@@ -8,9 +8,8 @@ async def check(domain):
     try:
         await loop.getaddrinfo(domain, None)
     except socket.gaierror:
-        print("not a domain")
-        return
-    print("domain is active")
+        return (domain, False)
+    return (domain, True)
 
 async def coro(delay, crash=False):
     print(f"Starting coro with delay {delay}")
@@ -26,5 +25,14 @@ async def main():
         res = await c
         print(res)
 
-print(kwlist)
-asyncio.run(check("awdawdawda"))
+async def main_check():
+    names = (kw + ".pl" for kw in kwlist)
+    #print(list(names))
+    tasks = [asyncio.create_task(check(domain)) for domain in names]
+    for coro in asyncio.as_completed(tasks):
+        domain, found = await coro
+        mark = "+" if found else "-"
+        print(f"{mark} {domain}")
+
+#asyncio.run(check("global.pl"))
+asyncio.run(main_check())
