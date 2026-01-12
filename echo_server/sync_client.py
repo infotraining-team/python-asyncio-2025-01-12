@@ -13,4 +13,14 @@ def echo_client(delay, client_id):
         print(f"{client_id} got: " + str(resp))
         time.sleep(delay)
 
-echo_client(1, "Leszek")
+if __name__ == "__main__":
+    import multiprocessing as mp
+    p1 = mp.Process(target=echo_client, args=((0.5, "Leszek")))
+    p2 = mp.Process(target=echo_client, args=((0.5, "Robert")))
+    p3 = mp.Process(target=echo_client, args=((0.5, "Bruno")))
+    p1.start()
+    p2.start()
+    p3.start()
+    p1.join()
+    p2.join()
+    p3.join()

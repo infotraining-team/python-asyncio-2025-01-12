@@ -4,6 +4,8 @@ def counter(n):
 
 print(type(counter(10)))
 
-for i in counter(10):
+c = counter(10)
+
+for i in c:
     print(i)
     print("-")
