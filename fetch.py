@@ -35,6 +35,29 @@ def fetch_sync():
     print(f"Took {t} s")
 
 async def async_fetch(url):
-    reader, writer = await asyncio.open_connection(url, PORT, ssl=True)
+    try:
+        reader, writer = await asyncio.open_connection(url, PORT, ssl=True)
+        request = f"GET / HTTP/1.0\r\nHost: {url}\r\n\r\n"
+        writer.write(request.encode())
+        await writer.drain()
+        # Read first 1024 bytes (enough for headers)
+        data = await reader.read(1024)
+        print(f"Async: Received from {url}")
+    except ssl.SSLError:
+        print("SSL ERROR")
 
-fetch_sync()
+async def fetch_async():
+    print("Fetch async:")
+    start = time.perf_counter()
+    #for url in URLS:
+    #    await async_fetch(url)
+    await asyncio.gather(*[async_fetch(url) for url in URLS])
+    t = time.perf_counter() - start
+    print(f"Took {t} s")
+
+async def main():
+    await fetch_async()
+    fetch_sync()
+
+
+asyncio.run(main())
