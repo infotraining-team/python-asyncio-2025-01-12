@@ -1,0 +1,2 @@
+class AsyncFile:
+    pass
