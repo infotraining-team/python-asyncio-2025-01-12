@@ -32,3 +32,7 @@ Using CPython 3.14.2+freethreaded
 Creating virtual environment at: .venv
 Hello from test!
 ```
+
+## Ankieta
+
+[Link do ankiety](https://docs.google.com/forms/d/e/1FAIpQLSfSDh9rMWJM2JLzlMw8BquIggEUF9Wslkgn-FZ82qr7a7V3fA/viewform?usp=header)
