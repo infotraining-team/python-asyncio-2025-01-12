@@ -27,12 +27,12 @@ async def test_CM():
 async def test_readall():
     with mock.patch('builtins.open', mock.mock_open(read_data=file_content)):
         async with AsyncFile("test_file") as f:
-            assert asyncio.iscoroutinefunction(f.readall)
+            assert asyncio.iscoroutinefunction(f.read_all)
 
 ## test file content
 @pytest.mark.asyncio
 async def test_readall_content():
     with mock.patch('builtins.open', mock.mock_open(read_data=file_content)):
         async with AsyncFile("test_file") as f:
-            res = await f.readall()
+            res = await f.read_all()
             assert res == file_content
