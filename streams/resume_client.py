@@ -19,6 +19,7 @@ async def consume_stream():
                             last_seen_id = data["id"]
                         except json.JSONDecodeError:
                             print("Failed to parse line")
+                    return
         except Exception as e:
             print("Connection lost, retrying")
             await asyncio.sleep(3)
